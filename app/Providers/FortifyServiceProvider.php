@@ -6,12 +6,16 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Fortify;
+use Stevebauman\Location\Facades\Location;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -20,7 +24,13 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse
+        {
+            public function toResponse($request)
+            {
+                return redirect('auth/login');
+            }
+        });
     }
 
     /**
@@ -34,13 +44,49 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
         });
 
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
+        });
+
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)->first();
+
+            if (
+                $user &&
+                Hash::check($request->password, $user->password)
+            ) {
+                return $user;
+            }
+        });
+
+        Fortify::loginView(function (Request $request) {
+            // $ip = $request->ip();
+            // $location = Location::get($ip);
+            // $currentHour = date('H');
+            // $greeting = '';
+
+            // if ($currentHour >= 5 && $currentHour < 12) {
+            //     $greeting = 'Selamat pagi';
+            // } elseif ($currentHour >= 12 && $currentHour < 18) {
+            //     $greeting = 'Selamat siang';
+            // } else {
+            //     $greeting = 'Selamat malam';
+            // }
+
+            return view('pages.auth.login');
+        });
+
+        Fortify::registerView(function () {
+            return view('pages.auth.register');
+        });
+
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('pages.auth.forgot-password');
         });
     }
 }
