@@ -200,10 +200,27 @@
                 </div>
             </div>
         </li>
+        {{-- <li class="dropdown"><a href="#" data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="features-profile.html" class="dropdown-item has-icon">
+                    <i class="far fa-user"></i> Profile
+                </a>
+                <a href="features-activities.html" class="dropdown-item has-icon">
+                    <i class="fas fa-bolt"></i> Activities
+                </a>
+                <a href="features-settings.html" class="dropdown-item has-icon">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </li> --}}
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
-                <div class="d-sm-none d-lg-inline-block">rio</div>
+                <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->name }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
@@ -217,14 +234,41 @@
                     <i class="fas fa-cog"></i> Settings
                 </a>
                 <div class="dropdown-divider"></div>
-                <form method="POST" action={{ route('logout') }}>
+                <form method="POST" action={{ url('auth/logout') }} id="form-logout">
                     @csrf
-                    <button type="submit"
-                        class="dropdown-item has-icon btn-sm text-danger d-flex align-items-center">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                    </button>
+                    <a href="#" class="dropdown-item text-danger" id="action-logout">
+                        <i class="fas fa-sign-out-alt mr-2"></i> {{ __('auth.action.logout') }}
+                    </a>
                 </form>
             </div>
         </li>
     </ul>
 </nav>
+
+
+@push('scripts')
+    <!-- JS Libraies -->
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
+
+    <script>
+        $("#action-logout").click(function() {
+            swal({
+                    title: '{{ __('auth.confirmation.logout.title') }}',
+                    text: '{{ __('auth.confirmation.logout.text') }}',
+                    icon: 'info',
+                    buttons: true,
+                    dangerMode: false,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $("#form-logout").submit();
+                    } else {
+                        return;
+                    }
+                });
+        });
+    </script>
+@endpush

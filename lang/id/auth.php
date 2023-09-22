@@ -13,12 +13,30 @@ return [
     |
     */
 
-    'failed' => 'Kredensial ini tidak cocok dengan catatan kami.',
+    'failed' => 'Kata sandi atau email salah',
     'password' => 'Kata sandi yang diberikan salah.',
     'throttle' => 'Terlalu banyak percobaan login. Silakan coba lagi dalam :seconds detik.',
+    'forgot_password' => [
+        'title' => 'Atur Kata Sandi',
+        'body' => 'Kami akan mengirimkan tautan untuk mengatur ulang kata sandi Anda'
+    ],
+    'verify_email' => [
+        'title' => 'Verifikasi Email',
+        'body' => 'Terima kasih telah mendaftar! Untuk melanjutkan, silakan periksa email Anda.',
+        'send' => 'Link verifikasi terkirim, cek email anda!',
+        'reset' => 'Kami telah mengirimkan tautan pengaturan ulang kata sandi Anda melalui email.',
+    ],
+    'send_email' => [
+        'title' => 'Mari konfirmasikan bahwa itu memang Anda!',
+        'subject' => 'Verifikasi Alamat Email',
+        'first_line' => 'Terima kasih :name telah mendaftar dengan :app. Silakan klik di bawah ini untuk mengonfirmasi akun Anda:',
+        'action' => 'Verifikasi Email',
+        'description' => 'Jika Anda tidak membuat akun, tidak diperlukan tindakan lebih lanjut.',
+    ],
     'action' => [
         'login' => 'Masuk',
         'register' => 'Daftar',
+        'logout' => 'Keluar',
         'other_login' => 'Masuk dengan akun lainya'
     ],
     'link' => [
@@ -33,5 +51,11 @@ return [
         'password_confirmation' => 'Konfirmasi Kata Sandi',
         'remember_me' => 'Ingat Saya',
     ],
+    'confirmation' => [
+        'logout' => [
+            'title' => 'Apakah anda yakin untuk keluar?',
+            'text' => 'menutup aplikasi..'
+        ]
+    ]
 
 ];

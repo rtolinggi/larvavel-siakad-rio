@@ -14,6 +14,16 @@
             <h4>{{ __('auth.action.login') }}</h4>
         </div>
         <div class="card-body">
+            {{-- @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                        {{ $errors->first() }}
+                    </div>
+                </div>
+            @endif --}}
             <form method="POST" action={{ route('login') }} class="needs-validation" novalidate="">
                 @csrf
                 <div class="form-group">
@@ -29,7 +39,7 @@
                     <div class="d-block">
                         <label for="password" class="control-label">{{ __('auth.field.password') }}</label>
                         <div class="float-right">
-                            <a href="auth-forgot-password.html" class="text-small">
+                            <a href="{{ route('password.request') }}" class="text-small">
                                 {{ __('auth.link.forgot_password') }}
                             </a>
                         </div>
@@ -58,13 +68,13 @@
             </div>
             <div class="row sm-gutters">
                 <div class="col-6">
-                    <a class="btn btn-block btn-social btn-facebook">
-                        <span class="fab fa-facebook"></span> Facebook
+                    <a class="btn btn-block btn-social btn-google">
+                        <span class="fab fa-google"></span> Google
                     </a>
                 </div>
                 <div class="col-6">
-                    <a class="btn btn-block btn-social btn-twitter">
-                        <span class="fab fa-twitter"></span> Twitter
+                    <a class="btn btn-block btn-social btn-github">
+                        <span class="fab fa-github"></span> Github
                     </a>
                 </div>
             </div>

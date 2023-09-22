@@ -17,7 +17,7 @@ Route::get('/', function () {
     return redirect(route('dashboard'));
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', function () {
             return view('pages.admin.dashboard', ['type_menu' => 'dashboard']);
