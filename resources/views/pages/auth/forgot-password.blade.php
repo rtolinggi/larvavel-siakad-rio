@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4" id="btn-forgot">
                         {{ __('auth.forgot_password.title') }}
                     </button>
                 </div>
@@ -44,6 +44,20 @@
 
 @push('scripts')
     <!-- JS Libraies -->
-
+    <script>
+        $(document).ready(function() {
+            $('#btn-forgot').click(function() {
+                var email = $('#email').val();
+                if (email !== "") {
+                    $(this).addClass("disabled btn-progress");
+                }
+            });
+        });
+        @if (session('status'))
+            $(document).ready(function() {
+                $(this).removeClass("disabled btn-progress");
+            });
+        @endif
+    </script>
     <!-- Page Specific JS File -->
 @endpush

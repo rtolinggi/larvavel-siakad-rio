@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
             return (new MailMessage)
                 ->greeting(__('auth.send_email.title'))
                 ->subject(__('auth.send_email.subject'))
-                ->line(__('auth.send_email.first_line', ['name' => Auth::user()->name, 'app' => env('APP_NAME')]))
+                ->line(__('auth.send_email.first_line', ['app' => env('APP_NAME')]))
                 ->action(__('auth.send_email.action'), $url)
                 ->line(__('auth.send_email.description'));
         });

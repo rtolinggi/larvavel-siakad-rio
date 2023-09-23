@@ -15,7 +15,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Fortify;
-use Stevebauman\Location\Facades\Location;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -65,19 +64,6 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::loginView(function (Request $request) {
-            // $ip = $request->ip();
-            // $location = Location::get($ip);
-            // $currentHour = date('H');
-            // $greeting = '';
-
-            // if ($currentHour >= 5 && $currentHour < 12) {
-            //     $greeting = 'Selamat pagi';
-            // } elseif ($currentHour >= 12 && $currentHour < 18) {
-            //     $greeting = 'Selamat siang';
-            // } else {
-            //     $greeting = 'Selamat malam';
-            // }
-
             return view('pages.auth.login');
         });
 

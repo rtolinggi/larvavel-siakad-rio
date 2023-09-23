@@ -14,16 +14,6 @@
             <h4>{{ __('auth.action.login') }}</h4>
         </div>
         <div class="card-body">
-            {{-- @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible show fade">
-                    <div class="alert-body">
-                        <button class="close" data-dismiss="alert">
-                            <span>&times;</span>
-                        </button>
-                        {{ $errors->first() }}
-                    </div>
-                </div>
-            @endif --}}
             <form method="POST" action={{ route('login') }} class="needs-validation" novalidate="">
                 @csrf
                 <div class="form-group">
@@ -58,26 +48,11 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4" id="btn-login">
                         {{ __('auth.action.login') }}
                     </button>
                 </div>
             </form>
-            <div class="mt-4 mb-3 text-center">
-                <div class="text-job text-muted">{{ __('auth.action.other_login') }}</div>
-            </div>
-            <div class="row sm-gutters">
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-google">
-                        <span class="fab fa-google"></span> Google
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-github">
-                        <span class="fab fa-github"></span> Github
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
     <div class="text-muted mt-5 text-center">
@@ -94,6 +69,24 @@
 
     {{-- Error Login --}}
     <script>
+        $(document).ready(function() {
+            $('#btn-login').click(function() {
+                var email = $('#email').val();
+                var password = $('#password').val();
+                if (email !== "" && password !== "") {
+                    $(this).addClass("disabled btn-progress");
+                }
+            });
+        });
+        @if (session('status'))
+            $(document).ready(function() {
+                iziToast.success({
+                    title: 'Sukses',
+                    message: '{{ session('status') }}',
+                    position: 'topRight'
+                });
+            });
+        @endif
         @if ($errors->any())
             $(document).ready(function() {
                 iziToast.error({
@@ -101,6 +94,7 @@
                     message: '{{ $errors->first() }}',
                     position: 'topRight'
                 });
+                $("#login-button").removeClass("disabled btn-progress");
             });
         @endif
     </script>

@@ -29,7 +29,7 @@ return [
     'send_email' => [
         'title' => "Let's confirm it's you!",
         'subject' => 'Verify Email Address',
-        'first_line' => 'Thank you :name for signing up with :app. Please click below to confirm your account:',
+        'first_line' => 'Thank you for signing up with :app. Please click below to confirm your account:',
         'action' => 'Verify Email',
         'description' => 'If you did not create an account, no further action is required.',
     ],
