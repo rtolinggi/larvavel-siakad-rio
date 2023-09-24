@@ -15,6 +15,12 @@ return [
 
     'failed' => 'Kata sandi atau email salah',
     'password' => 'Kata sandi yang diberikan salah.',
+    'failed_change_password' => 'Kata sandi saat ini tidak cocok.',
+    'success_change_password' => 'Kata sandi berhasi diubah',
+    'not_match_change_password' => 'Kata sandi yang diberikan tidak cocok dengan kata sandi Anda saat ini.',
+    'success_cahange_profile' => 'Profil berhasil diperbarui',
+    'password_confirmation_title' => 'Konfirmasi Kata Sandi',
+    'password_confirmation_body' => 'Untuk melanjutkan otentikasi dua faktor, silahkan masukan kata sandi anda',
     'throttle' => 'Terlalu banyak percobaan login. Silakan coba lagi dalam :seconds detik.',
     'forgot_password' => [
         'title' => 'Atur Kata Sandi',
@@ -22,7 +28,7 @@ return [
     ],
     'verify_email' => [
         'title' => 'Verifikasi Email',
-        'body' => 'Terima kasih telah mendaftar! Untuk melanjutkan, silakan periksa email Anda.',
+        'body' => 'Untuk melanjutkan, silakan periksa email Anda.',
         'send' => 'Link verifikasi terkirim, cek email anda!',
         'reset' => 'Kami telah mengirimkan tautan pengaturan ulang kata sandi Anda melalui email.',
     ],
@@ -49,6 +55,8 @@ return [
         'email' => 'Email',
         'password' => 'Kata Sandi',
         'password_confirmation' => 'Konfirmasi Kata Sandi',
+        'current_password' => 'Kata sandi saat ini',
+        'new_password' => 'Katra sandi baru',
         'remember_me' => 'Ingat Saya',
     ],
     'confirmation' => [

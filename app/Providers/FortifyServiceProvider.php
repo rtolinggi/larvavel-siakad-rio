@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LogoutResponse;
+use Laravel\Fortify\Contracts\ConfirmPasswordViewResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -28,6 +29,14 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 return redirect('auth/login');
+            }
+        });
+
+        $this->app->instance(ConfirmPasswordViewResponse::class, new class implements ConfirmPasswordViewResponse
+        {
+            public function toResponse($request)
+            {
+                return redirect()->route('confirm-password');
             }
         });
     }
@@ -59,28 +68,29 @@ class FortifyServiceProvider extends ServiceProvider
                 $user &&
                 Hash::check($request->password, $user->password)
             ) {
+                session(['login_time' => now()]);
                 return $user;
             }
         });
 
         Fortify::loginView(function (Request $request) {
-            return view('pages.auth.login');
+            return view('pages.auth.login', ['type_menu' => 'auth']);
         });
 
         Fortify::registerView(function () {
-            return view('pages.auth.register');
+            return view('pages.auth.register', ['type_menu' => 'auth']);
         });
 
         Fortify::requestPasswordResetLinkView(function () {
-            return view('pages.auth.forgot-password');
+            return view('pages.auth.forgot-password', ['type_menu' => 'auth']);
         });
 
         Fortify::verifyEmailView(function () {
-            return view('pages.auth.verify-email');
+            return view('pages.auth.verify-email', ['type_menu' => 'auth']);
         });
 
         Fortify::resetPasswordView(function (Request $request) {
-            return view('pages.auth.reset-password', ['request' => $request]);
+            return view('pages.auth.reset-password', ['request' => $request, 'type_menu' => 'auth']);
         });
     }
 }

@@ -1,3 +1,3 @@
   <div class="simple-footer">
-      Copyright &copy; Stisla 2023
+      Copyright &copy; Rio Tolinggi 2023
   </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +23,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', function () {
             return view('pages.admin.dashboard', ['type_menu' => 'dashboard']);
         })->name('dashboard');
+        Route::get('/blank-page', function () {
+            return view('pages.admin.blank-page', ['type_menu' => '']);
+        })->name('blank-page');
+        Route::get('/auth/user/confirm-password', function () {
+            return view('pages.auth.confirm-password', ['type_menu' => '']);
+        })->name('confirm-password');
+
+        // Profile Resource
+        Route::prefix('/profile')->group(function () {
+            Route::get('/', [ProfilController::class, 'index'])->name('profile');
+            // Route::put('/information', [ProfileInformatio]);
+            Route::post('/change-password', [ProfilController::class, 'updatePassword'])->name('profile.change.password');
+        });
     });
 });
+
 
 
 // Route::prefix('auth')->group(function () {

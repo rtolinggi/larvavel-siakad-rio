@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-register">
                         {{ __('auth.action.register') }}
                     </button>
                 </div>
@@ -72,6 +72,22 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#btn-register').click(function() {
+                // var name = $('#name').val();
+                // var email = $('#email').val();
+                // var password = $('#password').val();
+                // var password_confirmation = $('#password_confirmation');
+                // if (email !== "" && password !== "" && name !== "" && password_confirmation !== "") {
+                $(this).addClass("disabled btn-progress");
+                // }
+            });
+        });
+        @if ($errors->any())
+            $("#login-button").removeClass("disabled btn-progress");
+        @endif
+    </script>
     <!-- JS Libraies -->
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
     <script src="{{ asset('library/jquery.pwstrength/jquery.pwstrength.min.js') }}"></script>

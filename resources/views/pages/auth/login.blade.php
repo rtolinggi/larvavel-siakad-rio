@@ -18,8 +18,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="email">{{ __('auth.field.email') }}</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required
-                        autofocus>
+                    <input id="email" class="form-control" name="email" tabindex="1" required autofocus>
                     <div class="invalid-feedback">
                         {{ __('validation.required', ['attribute' => __('auth.field.email')]) }}
                     </div>
@@ -53,11 +52,13 @@
                     </button>
                 </div>
             </form>
+            <div class="text-muted  text-center">
+                {{ __('auth.link.dont_have_account') }} <a
+                    href={{ route('register') }}>{{ __('auth.link.register') }}</a>
+            </div>
         </div>
     </div>
-    <div class="text-muted mt-5 text-center">
-        {{ __('auth.link.dont_have_account') }} <a href={{ route('register') }}>{{ __('auth.link.register') }}</a>
-    </div>
+
 @endsection
 
 @push('scripts')

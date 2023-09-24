@@ -17,6 +17,25 @@
             </div>
         </div>
     @endif
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible show fade">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+                {{ $errors->first() }}
+            </div>
+        </div>
+    @endif
+    {{-- <div class="alert alert-success alert-dismissible show fade">
+        <div class="alert-body">
+            <button class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+            {{ __('auth.verify_email.reset') }}
+        </div>
+    </div>
+    @endif --}}
     <div class="card card-primary">
         <div class="card-header">
             <h4>{{ __('auth.forgot_password.title') }}</h4>
@@ -28,8 +47,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required
-                        autofocus>
+                    <input id="email" class="form-control" name="email" tabindex="1" required autofocus>
                 </div>
 
                 <div class="form-group">

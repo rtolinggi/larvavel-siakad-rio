@@ -14,7 +14,13 @@ return [
     */
 
     'failed' => 'Password or Email wrong',
+    'failed_change_password' => 'Current Password not match',
+    'success_change_password' => 'Password success updated',
+    'not_match_change_password' => 'The provided password does not match your current password.',
+    'success_cahange_profile' => 'Profile success updated',
     'password' => 'The provided password is incorrect.',
+    'password_confirmation_title' => 'Password Confirmation',
+    'password_confirmation_body' => 'To continue two-factor authentication, please enter your password',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'forgot_password' => [
         'title' => 'Forgot Password',
@@ -22,7 +28,7 @@ return [
     ],
     'verify_email' => [
         'title' => 'Verify Email',
-        'body' => 'Thank you for registering! To proceed, please check your email.',
+        'body' => 'To proceed, please check your email.',
         'send' => 'New verification link sent, check your email!',
         'reset' => 'We have emailed your password reset link.',
     ],
@@ -49,6 +55,8 @@ return [
         'email' => 'Email',
         'password' => 'Password',
         'password_confirmation' => 'Password Confirmation',
+        'current_password' => 'Current Password',
+        'new_password' => 'New Password',
         'remember_me' => 'Remember Me',
     ],
     'confirmation' => [
