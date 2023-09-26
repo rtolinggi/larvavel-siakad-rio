@@ -15,5 +15,8 @@ return [
         'tow_factor_auth_sub_title' => 'Set up 2 factor authentication for your account (recommended).',
         'two_factor_auth_title_activate' => 'Activate',
     ],
+    'user' => [
+        'menu' => 'User',
+    ],
     'settings' => 'Settings',
 ];

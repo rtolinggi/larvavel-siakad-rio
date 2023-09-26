@@ -19,5 +19,8 @@ return [
             Anda.',
         'two_factor_auth_title_activate' => 'Aktifkan',
     ],
+    'user' => [
+        'menu' => 'User',
+        ],
     'settings' => 'Pengaturan',
 ];

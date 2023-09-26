@@ -1350,17 +1350,17 @@ select.form-control:not([size]):not([multiple]) {
   border-top: none;
 }
 
-.table:not(.table-sm):not(.table-md):not(.dataTable) td,
-.table:not(.table-sm):not(.table-md):not(.dataTable) th {
+.table:not(.table-sm):not(.table-md) td,
+.table:not(.table-sm):not(.table-md) th {
   padding: 0 25px;
-  height: 60px;
+  height: 55px;
   vertical-align: middle;
 }
 
 .table:not(.table-sm) thead th {
   border-bottom: none;
-  background-color: rgba(0, 0, 0, 0.04);
-  color: #666;
+  background-color: #0891b2;
+  color: #fff;
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -4099,7 +4099,7 @@ body.layout-3 .main-footer {
 }
 
 .main-sidebar .sidebar-menu li a:hover {
-  background-color: #f8fafb;
+  background-color: #ecfeff;
 }
 
 .main-sidebar .sidebar-menu li.active a {

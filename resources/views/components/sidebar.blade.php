@@ -14,6 +14,11 @@
                 </a>
             </li>
             <li class="menu-header">{{ __('dashboard.settings') }}</li>
+            <li class="{{ Request::is('admin/user') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user') }}"><i class="far fa-user"></i>
+                    <span>{{ __('dashboard.user.menu') }}</span>
+                </a>
+            </li>
             <li class="{{ Request::is('admin/blank-page') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('blank-page') }}"><i class="far fa-square"></i>
                     <span>{{ __('dashboard.blank-page') }}</span>

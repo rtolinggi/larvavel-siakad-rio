@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/', [ProfilController::class, 'index'])->name('profile');
             // Route::put('/information', [ProfileInformatio]);
             Route::post('/change-password', [ProfilController::class, 'updatePassword'])->name('profile.change.password');
+        });
+
+        // User Resource
+        Route::prefix('/user')->group(function () {
+            Route::get('/', [UserController::class, 'index'])->name('user');
         });
     });
 });
