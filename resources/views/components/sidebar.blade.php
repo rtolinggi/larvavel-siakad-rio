@@ -15,7 +15,7 @@
             </li>
             <li class="menu-header">{{ __('dashboard.settings') }}</li>
             <li class="{{ Request::is('admin/user') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user') }}"><i class="far fa-user"></i>
+                <a class="nav-link" href="{{ route('admin.user.index') }}"><i class="far fa-user"></i>
                     <span>{{ __('dashboard.user.menu') }}</span>
                 </a>
             </li>

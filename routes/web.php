@@ -40,7 +40,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // User Resource
         Route::prefix('/user')->group(function () {
-            Route::get('/', [UserController::class, 'index'])->name('user');
+            Route::get('/', [UserController::class, 'index'])->name('admin.user.index');
+            Route::get('/store', function(){
+                return view('pages.admin.user.store',['type_menu' => '']);
+            })->name('admin.user.store');
+            Route::post('/store', [UserController::class, 'store'])->name('admin.user.post');
+            Route::get('/table', [UserController::class, 'table'])->name('admin.user.table');
         });
     });
 });
