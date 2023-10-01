@@ -23,14 +23,13 @@
                     </div>
                 </div>
             </div>
-
             <div class="section-body">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="mt-4 ml-4">
-                                <a href="{{ route('admin.user.store') }}" class="btn btn-primary md">
-                                    <i class="fa fa-add"></i> Tambah User
+                                <a href="{{ route('admin.user.store', ['user' => 'kosong']) }}" class="btn btn-primary md">
+                                    <i class="fa fa-add"></i> {{ __('dashboard.user.action.add') }}
                                 </a>
                             </div>
                             <div class="card-body">
@@ -47,24 +46,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach ($data['data'] as $user)
-                                                <tr>
-                                                    <td> {{ $loop->index + 1 }}</td>
-                                                    <td>{{ $user['name'] }}</td>
-                                                    <td>{{ $user['email'] }}</td>
-                                                    <td>{{ $user['roles'] }}</td>
-                                                    <td>{{ $user['phone'] }}</td>
-                                                    <td>
-                                                        <div>
-                                                            <button class="btn btn-icon btn-success btn-sm"
-                                                                data-toggle="modal" data-target="#store"><i
-                                                                    class="far fa-edit"></i></button>
-                                                            <button class="btn btn-icon btn-danger btn-sm"><i
-                                                                    class="fas fa-times"></i></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -75,50 +56,6 @@
             </div>
         </section>
     </div>
-
-    {{-- Store User --}}
-    <div class="modal fade" tabindex="-1" role="dialog" id="store">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Store User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Username</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Email" name="email">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-lock"></i>
-                                    </div>
-                                </div>
-                                <input type="password" class="form-control" placeholder="Password" name="password">
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('scripts')
@@ -126,6 +63,8 @@
     <script src="{{ asset('library/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('library/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('library/izitoast/dist/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
     <script src="{{ asset('js/page/modules-toastr.js') }}"></script>
     <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
     <script>
@@ -136,53 +75,99 @@
                 "ajax": "{{ route('admin.user.table') }}",
                 "searchDelay": 800,
                 "scrollY": false,
+                "columnDefs": [{
+                    "sortable": false,
+                    "targets": [5]
+                }],
                 "columns": [{
                         "data": null,
+                        "orderable": false,
                         "render": function(data, type, full, meta) {
                             return meta.row + 1;
                         }
                     },
                     {
-                        "data": "name"
+                        "data": "name",
+                        "orderable": true,
                     },
                     {
-                        "data": "email"
+                        "data": "email",
+                        "orderable": true,
                     },
                     {
-                        "data": "roles"
+                        "data": "roles",
+                        "orderable": true,
                     },
                     {
-                        "data": "phone"
+                        "data": "phone",
+                        "orderable": true,
                     },
                     {
                         "data": null,
                         "render": function(data, type, full, meta) {
-                            // Tambahkan tombol edit dan hapus di sini
-                            return '<button class="btn btn-success btn-sm mr-1" onclick="editUser(' +
-                                data.id + ')"><i class="far fa-edit"></i></button>' +
-                                '<button class="btn btn-danger btn-sm" onclick="deleteUser(' + data
-                                .id + ')"><i class="fas fa-times"></i></button>';
+                            return '<a href="{{ route('admin.user.edit', ['user' => ':user']) }}" class="btn btn-success btn-sm mr-1"><i class="far fa-edit"></i></a>'
+                                .replace(':user', data.id) +
+                                '<button class="btn btn-danger btn-sm" onClick="deleteUser(' +
+                                data.id + ')" ><i class="fas fa-times"></i></button>';
                         }
                     },
                     {
-                        "data": "id", // Kolom id yang ingin disembunyikan
-                        "visible": false, // Menyembunyikan kolom id
-                        "searchable": false // Menyembunyikan kolom id dari fungsi pencarian
+                        "data": "id",
+                        "visible": false,
+                        "searchable": false,
                     }
-                ]
+                ],
+                "paging": true,
+                "pageLength": 10,
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var currentPage = api.page.info().page;
+                    var startNumber = currentPage * api.page.len() + 1;
+                    rows.each(function(row, index) {
+                        $(row).find('td:first').html(startNumber + index);
+                    });
+                }
             });
         });
 
-        function editUser(userId) {
-            // Implementasi logika untuk tindakan edit
-            console.log("Edit user dengan ID:", userId);
-            // Tambahkan kode untuk membuka modal edit atau halaman edit
-        }
-
         function deleteUser(userId) {
-            // Implementasi logika untuk tindakan hapus
-            console.log("Hapus user dengan ID:", userId);
-            // Tambahkan kode untuk konfirmasi hapus dan mengirim permintaan penghapusan ke server
+            swal({
+                    template: '#my-template',
+                    title: 'Are you sure?',
+                    text: 'Once deleted, you will not be able to recover this data user with email! ',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: '{{ route('admin.user.delete', ['user' => ':userId']) }}'.replace(':userId',
+                                userId),
+                            type: 'DELETE',
+                            dataType: 'json',
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            success: function(data) {
+                                swal('data has been deleted!', {
+                                    icon: 'success',
+                                });
+                                $('#table-users').DataTable().ajax.reload();
+                            },
+                            error: function(error) {
+                                swal('Oops! Something went wrong.', {
+                                    icon: 'error',
+                                });
+                            }
+                        });
+                    } else {
+                        return
+                    }
+                });
         }
 
         function loadDataIntoTable(data) {

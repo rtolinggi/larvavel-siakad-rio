@@ -58,6 +58,9 @@ return [
         'current_password' => 'Current Password',
         'new_password' => 'New Password',
         'remember_me' => 'Remember Me',
+        'address' => 'Address',
+        'phone' => 'Phone',
+        'roles' => 'Roles',
     ],
     'confirmation' => [
         'logout' => [

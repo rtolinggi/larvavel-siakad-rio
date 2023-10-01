@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Advanced Forms')
+@section('title', 'add user')
 
 @push('style')
 @endpush
@@ -31,7 +31,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="name">Name</label>
+                                        <label for="name">{{ __('auth.field.name') }}</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
                                             name="name" value="{{ old('name') }}">
                                         @error('name')
@@ -39,7 +39,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label>Email</label>
+                                        <label>{{ __('auth.field.email') }}</label>
                                         <input type="email" class="form-control @error('email') is-invalid @enderror"
                                             name="email" value="{{ old('email') }}">
                                         @error('email')
@@ -47,36 +47,41 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label>Phone</label>
+                                        <label>{{ __('auth.field.phone') }}</label>
                                         <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                             name="phone" value="{{ old('phone') }}">
                                         @error('phone')
                                             <p class="invalid-feedback">{{ $message }}</p>
                                         @enderror
                                     </div>
-                                    <label class="form-label">Roles</label>
-                                    <div class="selectgroup w-100">
-                                        <label class="selectgroup-item">
-                                            <input type="radio" name="roles" value="admin" class="selectgroup-input"
-                                                checked="">
-                                            <span class="selectgroup-button">Admin</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input type="radio" name="roles" value="mahasiswa"
-                                                class="selectgroup-input">
-                                            <span class="selectgroup-button">Mahasiwa</span>
-                                        </label>
-                                        <label class="selectgroup-item">
-                                            <input type="radio" name="roles" value="dosen" class="selectgroup-input">
-                                            <span class="selectgroup-button">Dosen</span>
-                                        </label>
+                                    <div class="form-group">
+                                        <label class="form-label">{{ __('auth.field.roles') }}</label>
+                                        <div class="selectgroup w-100">
+                                            <label class="selectgroup-item">
+                                                <input type="radio" name="roles" value="admin"
+                                                    class="selectgroup-input"
+                                                    {{ old('roles') === 'admin' ? 'checked' : null }}>
+                                                <span class="selectgroup-button">Admin</span>
+                                            </label>
+                                            <label class="selectgroup-item">
+                                                <input type="radio" name="roles" value="mahasiswa"
+                                                    class="selectgroup-input" checked>
+                                                <span class="selectgroup-button">Mahasiwa</span>
+                                            </label>
+                                            <label class="selectgroup-item">
+                                                <input type="radio" name="roles" value="dosen"
+                                                    class="selectgroup-input"
+                                                    {{ old('roles') === 'dosen' ? 'checked' : null }}>
+                                                <span class="selectgroup-button">Dosen</span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label>Password</label>
+                                        <label>{{ __('auth.field.password') }}</label>
                                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                                             name="password">
                                         @error('password')
@@ -84,7 +89,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label>Confirm Password</label>
+                                        <label>{{ __('auth.field.password_confirmation') }}</label>
                                         <input type="password"
                                             class="form-control @error('password_confirmation') is-invalid @enderror"
                                             name="password_confirmation">
@@ -93,7 +98,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label>Alamat</label>
+                                        <label>{{ __('auth.field.address') }}</label>
                                         <textarea class="form-control @error('address') is-invalid @enderror" data-height="150" name="address"></textarea>
                                         @error('address')
                                             <p class="invalid-feedback">{{ $message }}</p>
@@ -105,8 +110,9 @@
                 </div>
                 <hr>
                 <div class="text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Save</button>
-                    <a href="{{ route('admin.user.index') }}" class="btn btn-secondary" type="reset">Cancel</a>
+                    <button class="btn btn-primary mr-1" type="submit">{{ __('dashboard.user.action.save') }}</button>
+                    <a href="{{ route('admin.user.index') }}" class="btn btn-secondary"
+                        type="reset">{{ __('dashboard.user.action.cancel') }}</a>
                 </div>
                 </form>
             </div>

@@ -58,6 +58,9 @@ return [
         'current_password' => 'Kata sandi saat ini',
         'new_password' => 'Katra sandi baru',
         'remember_me' => 'Ingat Saya',
+        'address' => 'Alamat',
+        'phone' => 'No Telpon',
+        'roles' => 'Peran',
     ],
     'confirmation' => [
         'logout' => [

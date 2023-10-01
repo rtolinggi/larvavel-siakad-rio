@@ -21,6 +21,12 @@ return [
     ],
     'user' => [
         'menu' => 'User',
+        'action' => [
+            'add' => 'tambah pengguna',
+            'save' => 'Simpan',
+            'cancel' => 'Batal',
+            'update' => 'Perbarui',
+            ],
         ],
     'settings' => 'Pengaturan',
 ];

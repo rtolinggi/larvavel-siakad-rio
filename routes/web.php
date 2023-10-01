@@ -41,19 +41,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // User Resource
         Route::prefix('/user')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('admin.user.index');
+            Route::post('/', [UserController::class, 'store'])->name('admin.user.post');
+            Route::put('/{user}/update', [UserController::class, 'update'])->name('admin.user.put');
+            Route::delete('/{user}', [UserController::class, 'destroy'])->name('admin.user.delete');
             Route::get('/store', function(){
                 return view('pages.admin.user.store',['type_menu' => '']);
             })->name('admin.user.store');
-            Route::post('/store', [UserController::class, 'store'])->name('admin.user.post');
+            Route::get('/update/{user}', [UserController::class, 'edit'])->name('admin.user.edit');
             Route::get('/table', [UserController::class, 'table'])->name('admin.user.table');
         });
     });
 });
-
-
-
-// Route::prefix('auth')->group(function () {
-//     Route::get('/login', [AuthenticationController::class, 'getUserLocation'])->name('auth.login');
-//     Route::get('/register', [AuthenticationController::class, 'index'])->name('auth.register');
-//     Route::get('/forgot', [AuthenticationController::class, 'forgotPassword'])->name('auth.forgot');
-// });
