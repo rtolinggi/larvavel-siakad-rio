@@ -44,8 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/', [UserController::class, 'store'])->name('admin.user.post');
             Route::put('/{user}/update', [UserController::class, 'update'])->name('admin.user.put');
             Route::delete('/{user}', [UserController::class, 'destroy'])->name('admin.user.delete');
-            Route::get('/store', function(){
-                return view('pages.admin.user.store',['type_menu' => '']);
+            Route::get('/store', function () {
+                return view('pages.admin.user.store', ['type_menu' => '']);
             })->name('admin.user.store');
             Route::get('/update/{user}', [UserController::class, 'edit'])->name('admin.user.edit');
             Route::get('/table', [UserController::class, 'table'])->name('admin.user.table');
