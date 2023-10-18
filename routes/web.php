@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(route('dashboard'));
+    return redirect(route('login'));
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -34,7 +34,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Profile Resource
         Route::prefix('/profile')->group(function () {
             Route::get('/', [ProfilController::class, 'index'])->name('profile');
-            // Route::put('/information', [ProfileInformatio]);
             Route::post('/change-password', [ProfilController::class, 'updatePassword'])->name('profile.change.password');
         });
 

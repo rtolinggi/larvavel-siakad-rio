@@ -38,6 +38,7 @@ class AuthController extends Controller
                 'status' => 401,
                 'errors' => [
                     'message' => 'Please verified your email',
+                    'token' => $user->createToken($request->email)->plainTextToken,
                 ]
             ], 401));
         }

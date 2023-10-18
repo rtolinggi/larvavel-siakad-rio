@@ -29,7 +29,7 @@
                         <label for="password" class="control-label">{{ __('auth.field.password') }}</label>
                         <div class="float-right">
                             <a href="{{ route('password.request') }}" class="text-small">
-                                {{ __('auth.link.forgot_password') }}
+                                {{ __('auth.link.forgot_password') }} ?
                             </a>
                         </div>
                     </div>

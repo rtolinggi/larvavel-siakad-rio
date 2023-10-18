@@ -34,7 +34,7 @@ class UserController extends Controller
             'address' => $request->address,
         ]);
 
-        return redirect(route('admin.user.index'))->with('status','Success add user with email '.$user->email);
+        return redirect(route('admin.user.index'))->with('status', 'Success add user with email ' . $user->email);
     }
 
     /**
@@ -57,7 +57,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('pages.admin.user.update',[
+        return view('pages.admin.user.update', [
             'type_menu' => '',
             'user' => $user,
         ]);
@@ -68,30 +68,30 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-       return $user->delete();
+        return $user->delete();
     }
 
     public function table(Request $request)
     {
-        $draw = $request->input('draw'); 
-        $start = $request->input('start'); 
-        $length = $request->input('length'); 
+        $draw = $request->input('draw');
+        $start = $request->input('start');
+        $length = $request->input('length');
         $searchTerm = $request->input('search.value');
         $order = $request->input('order');
         $orderBy = $order[0]['column'];
         $orderDir = $order[0]['dir'];
 
-        $allowedColumns = ['id','name', 'email', 'roles', 'phone'];
+        $allowedColumns = ['id', 'name', 'email', 'roles', 'phone'];
 
         $query = User::select($allowedColumns);
 
-        if(isset($allowedColumns[$orderBy])){
-            if($orderBy == 0){
+        if (isset($allowedColumns[$orderBy])) {
+            if ($orderBy == 0) {
                 $query->orderBy('updated_at', 'desc');
             } else {
                 $query->orderBy($allowedColumns[$orderBy], $orderDir);
             }
-        } 
+        }
 
         if (!empty($searchTerm)) {
             $query->where(function ($query) use ($searchTerm) {
@@ -101,7 +101,7 @@ class UserController extends Controller
                     ->orWhere('roles', 'like', '%' . $searchTerm . '%');
             });
         }
-        
+
         $totalData = $query->count();
         $totalFiltered = $query->count();
         $users = $query->offset($start)->limit($length)->get();
